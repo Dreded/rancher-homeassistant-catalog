@@ -3,7 +3,7 @@ services:
   db:
     image: mysql:5.7.25
     volumes:
-      - hassStore/ha_mysql:/var/lib/mysql
+      - ha_mysql:/var/lib/mysql
     {{- if (.Values.MYSQL_PORT) }}
     ports:
       - ${MYSQL_PORT}:3306
@@ -20,7 +20,7 @@ services:
       - db
     image: homeassistant/home-assistant:0.91.1
     volumes:
-      - hassStore/ha_config:/config
+      - ha_config:/config
     ports:
       - ${HA_PORT}:8123
     {{- if or (.Values.DEV_ZWAVE) (.Values.DEV_RFXCOM) }}
@@ -39,5 +39,13 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       TZ: ${TZ}
 volumes:
-  hassStore:
+  ha_config:
     driver: rancher-nfs
+    driver_opts:
+      host: 192.168.1.25
+      exportBase: /mnt/Basin/RancherOS/ha_config
+  ha_mysql:
+    driver: rancher-nfs
+    driver_opts:
+      host: 192.168.1.25
+      exportBase: /mnt/Basin/RancherOS/ha_mysql
