@@ -43,9 +43,9 @@ volumes:
     driver: rancher-nfs
     driver_opts:
       host: 192.168.1.25
-      exportBase: /mnt/Basin/RancherOS/ha_config
+      export: /mnt/Basin/RancherOS/ha_config
   ha_mysql:
     driver: rancher-nfs
     driver_opts:
       host: 192.168.1.25
-      exportBase: /mnt/Basin/RancherOS/ha_mysql
+      export: /mnt/Basin/RancherOS/ha_mysql
